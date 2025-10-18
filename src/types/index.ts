@@ -37,10 +37,3 @@ export interface AppState {
 }
 
 export type UsageLevel = 'normal' | 'warning' | 'critical' | 'full';
-
-export const getUsageLevel = (percentUsed: number): UsageLevel => {
-  if (percentUsed == 100) return 'full';
-  if (percentUsed >= 90) return 'critical';
-  if (percentUsed >= 70) return 'warning';
-  return 'normal';
-};

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { getUsageLevel } from './ContactsWidget';
+import { getUsageLevelColor } from '../utils/colorUtils';
 
 import type { UsageLevel} from '../types';
 
@@ -22,19 +23,7 @@ const ProgressBarFill = styled.div<{ level: UsageLevel; width: number }>`
   width: ${props => Math.min(props.width, 100)}%;
   border-radius: 4px;
   transition: all 0.3s ease;
-  background-color: ${props => {
-    switch (props.level) {
-      case 'full':
-        return '#e53e3e'; // Red
-      case 'critical':
-        return '#e53e3e'; // Red
-      case 'warning':
-        return '#f56500'; // Orange
-      case 'normal':
-      default:
-        return '#38a169'; // Green
-    }
-  }};
+  background-color: ${props => getUsageLevelColor(props.level)};
 `;
 
 export const ProgressBar: React.FC<ProgressBarProps> = ({ percentUsed, className }) => {

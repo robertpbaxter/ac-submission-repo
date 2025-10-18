@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { ProgressBar } from './ProgressBar';
 import { UpgradePrompt } from './UpgradePrompt';
+import { getUsageLevelColor } from '../utils/colorUtils';
 
 import type { ContactsUsage, AccountData, UsageLevel } from '../types';
 
@@ -53,23 +54,11 @@ const LimitValue = styled.span`
 const PercentageLabel = styled.span<{ level: UsageLevel }>`
   font-size: 0.875rem;
   font-weight: 600;
-  color: ${props => {
-    switch (props.level) {
-      case 'full':
-        return '#e53e3e';
-      case 'critical':
-        return '#e53e3e';
-      case 'warning':
-        return '#f56500';
-      case 'normal':
-      default:
-        return '#38a169';
-    }
-  }};
+  color: ${props => getUsageLevelColor(props.level)};
 `;
 
 export const getUsageLevel = (percentUsed: number): UsageLevel => {
-  if (percentUsed == 100) return 'full';
+  if (percentUsed === 100) return 'full';
   if (percentUsed >= 90) return 'critical';
   if (percentUsed >= 70) return 'warning';
   return 'normal';

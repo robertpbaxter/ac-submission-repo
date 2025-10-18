@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { AccountData, UsageLevel } from '../types';
+import { getUsageLevelBackgroundColor, getUsageLevelBorderColor } from '../utils/colorUtils';
 
 interface UpgradePromptProps {
   usageLevel: UsageLevel;
@@ -13,30 +14,8 @@ const UpgradeContainer = styled.div<{ level: UsageLevel }>`
   margin-top: 0.75rem;
   padding: 0.75rem;
   border-radius: 6px;
-  background-color: ${props => {
-    switch (props.level) {
-      case 'full':
-        return '#fed7d7'; // Light red
-      case 'critical':
-        return '#fed7d7'; // Light red
-      case 'warning':
-        return '#feebc8'; // Light orange
-      default:
-        return '#f0fff4'; // Light green
-    }
-  }};
-  border: 1px solid ${props => {
-    switch (props.level) {
-      case 'full':
-        return '#fc8181'; // Medium red
-      case 'critical':
-        return '#fc8181'; // Medium red
-      case 'warning':
-        return '#f6ad55'; // Medium orange
-      default:
-        return '#68d391'; // Medium green
-    }
-  }};
+  background-color: ${props => getUsageLevelBackgroundColor(props.level)};
+  border: 1px solid ${props => getUsageLevelBorderColor(props.level)};
 `;
 
 const UpgradeMessage = styled.p`
@@ -83,7 +62,9 @@ export const UpgradePrompt: React.FC<UpgradePromptProps> = ({
   };
 
   const getMessage = () => {
-    if (percentUsed >= 95) {
+    if (percentUsed === 100) {
+      return `You're at your ${metricName} limit! Upgrade to ${account.nextTier!.name} to resume services!`;
+    } else if (percentUsed >= 95) {
       return `You're almost at your ${metricName} limit! Upgrade to ${account.nextTier!.name} to avoid service interruption.`;
     } else if (percentUsed >= 90) {
       return `You're running low on ${metricName}. Consider upgrading to ${account.nextTier!.name} for more capacity.`;

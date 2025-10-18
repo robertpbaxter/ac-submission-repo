@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import {  getUsageLevel } from './ContactsWidget';
+import { getUsageLevel } from './ContactsWidget';
 import { ProgressBar } from './ProgressBar';
 import { UpgradePrompt } from './UpgradePrompt';
+import { getUsageLevelColor } from '../utils/colorUtils';
 
 import type { EmailSendsUsage, AccountData, UsageLevel } from '../types';
 
@@ -54,19 +55,7 @@ const LimitValue = styled.span`
 const PercentageLabel = styled.span<{ level: UsageLevel}>`
   font-size: 0.875rem;
   font-weight: 600;
-  color: ${props => {
-    switch (props.level) {
-      case 'full':
-        return '#e53e3e';
-      case 'critical':
-        return '#e53e3e';
-      case 'warning':
-        return '#f56500';
-      case 'normal':
-      default:
-        return '#38a169';
-    }
-  }};
+  color: ${props => getUsageLevelColor(props.level)};
 `;
 
 const ResetDate = styled.div`
