@@ -1,7 +1,6 @@
 import { AppState } from '../types';
 import { AppAction, FETCH_DATA_START, FETCH_DATA_SUCCESS, FETCH_DATA_ERROR } from './actions';
 
-// 
 const initialState: AppState = {
   usage: undefined,
   account: undefined,

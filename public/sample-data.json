@@ -85,13 +85,13 @@
     "atProfessionalLimit": {
       "usage": {
         "contacts": {
-          "current": 1000,
-          "limit": 1000,
+          "current": 2500,
+          "limit": 2500,
           "percentUsed": 100
         },
         "emailSends": {
           "remaining": 0,
-          "limit": 10000,
+          "limit": 25000,
           "resetDate": "2025-10-15T00:00:00Z",
           "percentUsed": 100
         }
@@ -107,7 +107,7 @@
         }
       }
     },
-    "enterprise": {
+    "enterpriseNotFull": {
       "usage": {
         "contacts": {
           "current": 8500,
@@ -119,6 +119,27 @@
           "limit": 500000,
           "resetDate": "2025-11-01T00:00:00Z",
           "percentUsed": 76
+        }
+      },
+      "account": {
+        "planName": "Enterprise",
+        "planTier": "enterprise",
+        "upgradeable": false,
+        "nextTier": null
+      }
+    },
+    "enterpriseFull": {
+      "usage": {
+        "contacts": {
+          "current": 10000,
+          "limit": 10000,
+          "percentUsed": 100
+        },
+        "emailSends": {
+          "remaining": 50000,
+          "limit": 500000,
+          "resetDate": "2025-11-01T00:00:00Z",
+          "percentUsed": 100
         }
       },
       "account": {

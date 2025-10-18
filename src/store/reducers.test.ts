@@ -15,6 +15,11 @@ describe('rootReducer', () => {
     emailSends: { remaining: 1200, limit: 10000, resetDate: '2025-10-20T00:00:00Z', percentUsed: 88 }
   };
 
+  const mockFullUsageData: UsageData = {
+    contacts: { current: 1000, limit: 1000, percentUsed: 100 },
+    emailSends: { remaining: 0, limit: 10000, resetDate: '2025-10-20T00:00:00Z', percentUsed: 100 }
+  };
+
   const mockAccountData: AccountData = {
     planName: 'Plus',
     planTier: 'plus',
@@ -55,6 +60,20 @@ describe('rootReducer', () => {
       loading: false,
       error: errorMessage,
     });
+  });
+
+  it('should handle FETCH_DATA_SUCCESS with full usage data', () => {
+    const action = fetchDataSuccess(mockFullUsageData, mockAccountData);
+    const newState = rootReducer(initialState, action);
+
+    expect(newState).toEqual({
+      usage: mockFullUsageData,
+      account: mockAccountData,
+      loading: false,
+      error: undefined,
+    });
+    expect(newState.usage?.contacts.percentUsed).toBe(100);
+    expect(newState.usage?.emailSends.percentUsed).toBe(100);
   });
 
   it('should return the current state for unknown actions', () => {

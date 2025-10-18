@@ -52,8 +52,8 @@ export const UpgradePrompt: React.FC<UpgradePromptProps> = ({
   account, 
   metricName 
 }) => {
-  // Only show upgrade prompts when usage is >= 80% and account is upgradeable
-  if (percentUsed < 80 || !account.upgradeable || !account.nextTier) {
+  // Show upgrade prompts when usage is >= 80%
+  if (percentUsed < 80) {
     return null;
   }
 
@@ -62,23 +62,36 @@ export const UpgradePrompt: React.FC<UpgradePromptProps> = ({
   };
 
   const getMessage = () => {
-    if (percentUsed === 100) {
-      return `You're at your ${metricName} limit! Upgrade to ${account.nextTier!.name} to resume services!`;
-    } else if (percentUsed >= 95) {
-      return `You're almost at your ${metricName} limit! Upgrade to ${account.nextTier!.name} to avoid service interruption.`;
-    } else if (percentUsed >= 90) {
-      return `You're running low on ${metricName}. Consider upgrading to ${account.nextTier!.name} for more capacity.`;
+    // The number of cases has grown to so many that this probably deserves its own state management
+    if (percentUsed === 100 && !account.upgradeable) {
+      return `You've reached your ${metricName} limit! Contact support immediately for assistance.`;
+    } else if (percentUsed === 100 && account.upgradeable && account.nextTier) {
+      return `You're at your ${metricName} limit! Upgrade to ${account.nextTier.name} to resume services!`;
+    } else if (percentUsed >= 95 && account.upgradeable && account.nextTier) {
+      return `You're almost at your ${metricName} limit! Upgrade to ${account.nextTier.name} to avoid service interruption.`;
+    } else if (percentUsed >= 95 && !account.upgradeable) {
+      return `You're almost at your ${metricName} limit! Contact support for assistance.`;
+    } else if (percentUsed >= 90 && account.upgradeable && account.nextTier) {
+      return `You're running low on ${metricName}. Consider upgrading to ${account.nextTier.name} for more capacity.`;
+    } else if (percentUsed >= 90 && !account.upgradeable) {
+      return `You're running low on ${metricName}. Contact support for more capacity options.`;
+    } else if (account.upgradeable && account.nextTier) {
+      return `You're approaching your ${metricName} limit. Upgrade to ${account.nextTier.name} to get more capacity.`;
     } else {
-      return `You're approaching your ${metricName} limit. Upgrade to ${account.nextTier!.name} to get more capacity.`;
+      return `You're approaching your ${metricName} limit. Contact support for more capacity options.`;
     }
   };
+
+  const showUpgradeButton = account.upgradeable && account.nextTier;
 
   return (
     <UpgradeContainer level={usageLevel}>
       <UpgradeMessage>{getMessage()}</UpgradeMessage>
-      <UpgradeButton onClick={handleUpgrade}>
-        Upgrade to {account.nextTier!.name}
-      </UpgradeButton>
+      {showUpgradeButton && (
+        <UpgradeButton onClick={handleUpgrade}>
+          Upgrade to {account.nextTier!.name}
+        </UpgradeButton>
+      )}
     </UpgradeContainer>
   );
 };

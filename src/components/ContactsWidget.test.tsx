@@ -74,6 +74,16 @@ describe('ContactsWidget', () => {
     rerender(<ContactsWidget usage={criticalUsage} account={mockAccountUpgradeable} />);
     expect(screen.getByText('95% used')).toHaveStyle({ color: '#e53e3e' });
 
+    // Full level (100%)
+    const fullUsage: ContactsUsage = {
+      current: 1000,
+      limit: 1000,
+      percentUsed: 100,
+    };
+
+    rerender(<ContactsWidget usage={fullUsage} account={mockAccountUpgradeable} />);
+    expect(screen.getByText('100% used')).toHaveStyle({ color: '#e53e3e' });
+
     // Normal level (50%)
     const normalUsage: ContactsUsage = {
       current: 500,
@@ -83,5 +93,17 @@ describe('ContactsWidget', () => {
 
     rerender(<ContactsWidget usage={normalUsage} account={mockAccountUpgradeable} />);
     expect(screen.getByText('50% used')).toHaveStyle({ color: '#38a169' });
+  });
+
+  it('shows urgent upgrade prompt when at full usage level (100%)', () => {
+    const fullUsage: ContactsUsage = {
+      current: 1000,
+      limit: 1000,
+      percentUsed: 100,
+    };
+
+    render(<ContactsWidget usage={fullUsage} account={mockAccountUpgradeable} />);
+    
+    expect(screen.getByText(/You're at your contacts limit!/)).toBeInTheDocument();
   });
 });

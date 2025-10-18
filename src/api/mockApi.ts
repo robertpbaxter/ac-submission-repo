@@ -1,4 +1,4 @@
-const mockScenario = "atProfessionalLimit" 
+const mockScenario = "enterpriseFull" 
 
 export const fetchUsageData = async (): Promise<any> => {
   // Simulate API delay
