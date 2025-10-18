@@ -11,6 +11,7 @@ interface ContactsWidgetProps {
   account: AccountData;
 }
 
+// These widget cards could possibly come from a component library, but for now they are defined here
 const WidgetCard = styled.div`
   background-color: white;
   border-radius: 8px;
