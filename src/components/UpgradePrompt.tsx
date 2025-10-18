@@ -15,6 +15,8 @@ const UpgradeContainer = styled.div<{ level: UsageLevel }>`
   border-radius: 6px;
   background-color: ${props => {
     switch (props.level) {
+      case 'full':
+        return '#fed7d7'; // Light red
       case 'critical':
         return '#fed7d7'; // Light red
       case 'warning':
@@ -25,6 +27,8 @@ const UpgradeContainer = styled.div<{ level: UsageLevel }>`
   }};
   border: 1px solid ${props => {
     switch (props.level) {
+      case 'full':
+        return '#fc8181'; // Medium red
       case 'critical':
         return '#fc8181'; // Medium red
       case 'warning':

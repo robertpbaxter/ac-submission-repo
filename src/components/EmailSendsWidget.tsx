@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { EmailSendsUsage, AccountData, getUsageLevel } from '../types';
+import {  getUsageLevel } from './ContactsWidget';
 import { ProgressBar } from './ProgressBar';
 import { UpgradePrompt } from './UpgradePrompt';
+
+import type { EmailSendsUsage, AccountData, UsageLevel } from '../types';
 
 interface EmailSendsWidgetProps {
   usage: EmailSendsUsage;
@@ -49,11 +51,13 @@ const LimitValue = styled.span`
   color: #718096;
 `;
 
-const PercentageLabel = styled.span<{ level: 'normal' | 'warning' | 'critical' }>`
+const PercentageLabel = styled.span<{ level: UsageLevel}>`
   font-size: 0.875rem;
   font-weight: 600;
   color: ${props => {
     switch (props.level) {
+      case 'full':
+        return '#e53e3e';
       case 'critical':
         return '#e53e3e';
       case 'warning':

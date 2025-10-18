@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ContactsUsage, AccountData, getUsageLevel } from '../types';
 import { ProgressBar } from './ProgressBar';
 import { UpgradePrompt } from './UpgradePrompt';
+
+import type { ContactsUsage, AccountData, UsageLevel } from '../types';
 
 interface ContactsWidgetProps {
   usage: ContactsUsage;
@@ -49,11 +50,13 @@ const LimitValue = styled.span`
   color: #718096;
 `;
 
-const PercentageLabel = styled.span<{ level: 'normal' | 'warning' | 'critical' }>`
+const PercentageLabel = styled.span<{ level: UsageLevel }>`
   font-size: 0.875rem;
   font-weight: 600;
   color: ${props => {
     switch (props.level) {
+      case 'full':
+        return '#e53e3e';
       case 'critical':
         return '#e53e3e';
       case 'warning':
@@ -64,6 +67,13 @@ const PercentageLabel = styled.span<{ level: 'normal' | 'warning' | 'critical' }
     }
   }};
 `;
+
+export const getUsageLevel = (percentUsed: number): UsageLevel => {
+  if (percentUsed == 100) return 'full';
+  if (percentUsed >= 90) return 'critical';
+  if (percentUsed >= 70) return 'warning';
+  return 'normal';
+};
 
 export const ContactsWidget: React.FC<ContactsWidgetProps> = ({ usage, account }) => {
   const usageLevel = getUsageLevel(usage.percentUsed);

@@ -24,7 +24,7 @@ export interface NextTier {
 
 export interface AccountData {
   planName: string;
-  planTier: string;
+  planTier: 'plus' | 'professional' | 'enterprise';
   upgradeable: boolean;
   nextTier?: NextTier;
 }
@@ -36,9 +36,10 @@ export interface AppState {
   error?: string;
 }
 
-export type UsageLevel = 'normal' | 'warning' | 'critical';
+export type UsageLevel = 'normal' | 'warning' | 'critical' | 'full';
 
 export const getUsageLevel = (percentUsed: number): UsageLevel => {
+  if (percentUsed == 100) return 'full';
   if (percentUsed >= 90) return 'critical';
   if (percentUsed >= 70) return 'warning';
   return 'normal';
