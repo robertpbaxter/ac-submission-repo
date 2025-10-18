@@ -1,80 +1,61 @@
-# Feature Usage Widget Challenge
+# SUBMISSION
 
-**Time Estimate:** 2-3 hours
-
-## Overview
-Build a feature usage widget that displays an account's usage against plan limits with contextual upgrade prompts.
-
-## Requirements
-
-### Functional Requirements
-
-1. **Display Two Usage Metrics:**
-   - **Contacts Widget:** Shows current contacts vs. limit (counts up to maximum)
-   - **Email Sends Widget:** Shows remaining email sends vs. limit with reset date (counts down)
-
-2. **Visual Progress Indicators:**
-   - Display usage as both a progress bar and numerical values
-   - Progress bars should visually indicate urgency:
-     - < 70% used: Normal state (e.g., green/blue)
-     - 70-89% used: Warning state (e.g., yellow/orange)  
-     - ≥ 90% used: Critical state (e.g., red)
-
-3. **Contextual Upgrade Prompts:**
-   - Show upgrade CTAs when usage is ≥ 80%
-   - Different messaging based on usage level
-   - Clicking upgrade should trigger `alert()` with the next plan tier name
-   - Don't show upgrade prompts for Enterprise tier (no higher tier available)
-
-4. **Email Sends Reset Date:**
-   - Display "Resets on [date]" for email sends limit
-   - Format the date in a user-friendly way (e.g., "October 20, 2025")
-
-5. **Redux State Management:**
-   - All usage and account data must live in Redux store
-   - Implement actions and reducers using Redux
-   - Components should use `useSelector` and `useDispatch`
-
-6. **API Integration:**
-   - Fetch data using the mock API functions in `/src/api/mockApi.ts`
-   - Handle loading and error states
-   - API responses are documented in mockApi.ts
-
-7. **TypeScript:**
-   - Define interfaces for all data structures
-   - Type all Redux actions, state, and reducers
-   - Type all component props
-
-### Technical Requirements
-
-- Use styled-components for all styling
-- Create reusable components where appropriate
-- Write at least 2-3 unit tests
-- Handle edge cases
-- Responsive design not required, but layout should be reasonable
-
-### What's Provided
-
-- Basic app shell in `App.tsx`
-- Empty Redux store setup
-- Mock API function signatures with documented response shapes
-- Sample data scenarios in `/public/sample-data.json`
-
-### What You Need to Build
-
-- Redux store implementation (actions, reducers, types)
-- All UI components for the usage widgets
-- Progress bar components with color states
-- Upgrade prompt components
-- Tests for key functionality
-
-## Getting Started
+## Setup
+No changes. Clone, install deps, and start as normal.
 
 1. Install dependencies: `npm install`
 2. Start the dev server: `npm start`
 3. Run tests: `npm test`
 
-## Submission
+# TASK DOCUMENTATION
 
-1. Push your completed code to a GitHub repository OR return as a zipped directory by email.
-2. You will discuss your submission in a live code review during the panel interview step.
+## Overview
+Giving the reviewers full transparency on both my decision-making process as well as a sneak peek into my learning process. I am not counting documentation time as a part of the 2-3 hour recommendation.
+
+## Steps
+
+1. **Preparation and understanding**
+- Read and understand instructions
+- Inspect what was provided
+  - Notice the comments prompting additions in store index and app.tsx
+  - Uses a mock api for data
+  - Create private repo, install dependencies, fire up the app
+- Identify major obstacles
+  - Minimal style guide (font alone)
+  - No component library (since assessors want reusable components)
+  - No existing implementation for state management (also desired in assessment)
+  - React and redux are super rusty (last used in 2020), plus react redux is new to me
+- Identify my strengths
+  - Typescript
+  - Using centralized data stores (ember-data), unidirectional data flow (Data Down, Actions Up)
+  - Declarative programming (updates by observers)
+  - Breaking down and understanding functional code, identifying and resolving edge cases, foreseeing potential UX issues ahead of time
+
+2. **Weighing my options**
+- Three ideas came to mind for action
+  1. Hand craft everything from scratch
+  2. Find examples of similar code online for inspiration
+  3. Tap into agentic resources
+- Strengths of each option
+  1. Prove that I have memorized X amount of esoteric knowledge?
+  2. I can find examples that suit my own style
+  3. React provides a much greater base of data for LLMs than antiquated ember.js versions, plus AI does better at generating new content than understanding and modifying existing code bases (which is my specialty). I can use an agent to generate a working example that I can expand .
+- Drawbacks to each option
+  1. Test anxiety and assessment deadlines have an unreasonable influence on my ability to focus. Consulting online docs for react redux and react basics errors would end up consuming all the assessment time (e.g. an ember template convention `usage={{usage.contacts}}` instead of `usage={usage.contacts}`).
+  2. Searching online is another time sink, plus I risk exhibiting novice copypasta mistakes. Realistically, it feels like plagiarism anyways.
+  3. The fundamental drawback of employing an AI agent is still demonstrating my skills as a senior software engineer. I have to show how I am using agentive tools to overcome my current skill gaps and prove that the agent is not just doing the work for me.
+
+3. **Copilot Contribution**
+- I initially prompted copilot to create a pair of components as bare bones components that I could populate: `In this react application within #file:src , generate two components inside the #sym:WidgetsContainer that will host code.`
+  - The agent inspected the code base and found more context than in the prompt. The components were functional, but the mock api data was being displayed directly in the templates (not implementing the store).
+- I discarded the initial suggestion and revised my prompt to include the setup of react redux.
+  - Copilot generated all the typescript interfaces, a redux store, a series of abstract components, and some basic tests.
+
+4. **Building upon the Copilot output**
+- I brought up the app and started swapping scenarios from the mockApi to check the sample data
+- Created new cases for a no-data state as well as a professional-to-enterprise level CTA
+- Broke the mockApi to ensure that errors are handled (app doesn't crash) and that errors contents are displayed to the user
+- I realized that "full" scenarios were never mentioned, and went down the rabbit hole of digging up additional UX cases
+- Created a "full" scenario, then realized that it's possible for an enterprise account to fill up as well, expanding logic to include warnings and alerts despite the inability to upgrade via CTA. Suggested contacting support in those cases I guess.
+- Prompted the agent to consolidate all the repetitive color codes into a utility function.
+- Realized that I've put in about 3-4 hours of followup research and work, so I tidied up the tests and pushed my commits to github for submission.

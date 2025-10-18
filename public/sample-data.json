@@ -136,7 +136,7 @@
           "percentUsed": 100
         },
         "emailSends": {
-          "remaining": 50000,
+          "remaining": 500000,
           "limit": 500000,
           "resetDate": "2025-11-01T00:00:00Z",
           "percentUsed": 100

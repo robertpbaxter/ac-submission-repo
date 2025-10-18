@@ -12,6 +12,7 @@ interface EmailSendsWidgetProps {
   account: AccountData;
 }
 
+// These widget cards could possibly come from a component library, but for now they are defined here
 const WidgetCard = styled.div`
   background-color: white;
   border-radius: 8px;
@@ -87,7 +88,7 @@ export const EmailSendsWidget: React.FC<EmailSendsWidgetProps> = ({ usage, accou
       <UsageStats>
         <div>
           <CurrentValue>{usage.remaining.toLocaleString()}</CurrentValue>
-          <LimitValue> / {usage.limit.toLocaleString()} remaining</LimitValue>
+          <LimitValue> / {usage.limit.toLocaleString()} email sends</LimitValue>
         </div>
       </UsageStats>
       

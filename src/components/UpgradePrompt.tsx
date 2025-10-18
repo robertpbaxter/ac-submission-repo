@@ -10,6 +10,7 @@ interface UpgradePromptProps {
   metricName: string;
 }
 
+// I wager there's got to be a CTA notification in the library
 const UpgradeContainer = styled.div<{ level: UsageLevel }>`
   margin-top: 0.75rem;
   padding: 0.75rem;
@@ -18,6 +19,7 @@ const UpgradeContainer = styled.div<{ level: UsageLevel }>`
   border: 1px solid ${props => getUsageLevelBorderColor(props.level)};
 `;
 
+// If there isn't a button component in the library, I'll eat my shoe
 const UpgradeMessage = styled.p`
   margin: 0 0 0.5rem 0;
   font-size: 0.875rem;

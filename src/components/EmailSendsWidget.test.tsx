@@ -30,7 +30,7 @@ describe('EmailSendsWidget', () => {
     
     expect(screen.getByText('Email Sends')).toBeInTheDocument();
     expect(screen.getByText('1,200')).toBeInTheDocument();
-    expect(screen.getByText('/ 10,000 remaining')).toBeInTheDocument();
+    expect(screen.getByText('/ 10,000 email sends')).toBeInTheDocument();
     expect(screen.getByText('12% remaining')).toBeInTheDocument();
     expect(screen.getByText(/Resets on October \d+, 2025/)).toBeInTheDocument();
   });
