@@ -1,45 +1,125 @@
 {
   "scenarios": {
+    "noData": {
+      "usage": {
+        "contacts": {},
+        "emailSends": {}
+      },
+      "account": {}
+    },
     "underLimit": {
       "usage": {
-        "contacts": { "current": 450, "limit": 1000, "percentUsed": 45 },
-        "emailSends": { "remaining": 6000, "limit": 10000, "resetDate": "2025-11-01T00:00:00Z", "percentUsed": 40 }
+        "contacts": {
+          "current": 450,
+          "limit": 1000,
+          "percentUsed": 45
+        },
+        "emailSends": {
+          "remaining": 6000,
+          "limit": 10000,
+          "resetDate": "2025-11-01T00:00:00Z",
+          "percentUsed": 40
+        }
       },
       "account": {
         "planName": "Plus",
         "planTier": "plus",
         "upgradeable": true,
-        "nextTier": { "name": "Professional", "contactLimit": 2500, "emailSendLimit": 25000 }
+        "nextTier": {
+          "name": "Professional",
+          "contactLimit": 2500,
+          "emailSendLimit": 25000
+        }
       }
     },
     "approachingLimit": {
       "usage": {
-        "contacts": { "current": 850, "limit": 1000, "percentUsed": 85 },
-        "emailSends": { "remaining": 1200, "limit": 10000, "resetDate": "2025-10-20T00:00:00Z", "percentUsed": 88 }
+        "contacts": {
+          "current": 850,
+          "limit": 1000,
+          "percentUsed": 85
+        },
+        "emailSends": {
+          "remaining": 1200,
+          "limit": 10000,
+          "resetDate": "2025-10-20T00:00:00Z",
+          "percentUsed": 88
+        }
       },
       "account": {
         "planName": "Plus",
         "planTier": "plus",
         "upgradeable": true,
-        "nextTier": { "name": "Professional", "contactLimit": 2500, "emailSendLimit": 25000 }
+        "nextTier": {
+          "name": "Professional",
+          "contactLimit": 2500,
+          "emailSendLimit": 25000
+        }
       }
     },
-    "atLimit": {
+    "atPlusLimit": {
       "usage": {
-        "contacts": { "current": 1000, "limit": 1000, "percentUsed": 100 },
-        "emailSends": { "remaining": 0, "limit": 10000, "resetDate": "2025-10-15T00:00:00Z", "percentUsed": 100 }
+        "contacts": {
+          "current": 1000,
+          "limit": 1000,
+          "percentUsed": 100
+        },
+        "emailSends": {
+          "remaining": 0,
+          "limit": 10000,
+          "resetDate": "2025-10-15T00:00:00Z",
+          "percentUsed": 100
+        }
       },
       "account": {
         "planName": "Plus",
         "planTier": "plus",
         "upgradeable": true,
-        "nextTier": { "name": "Professional", "contactLimit": 2500, "emailSendLimit": 25000 }
+        "nextTier": {
+          "name": "Professional",
+          "contactLimit": 2500,
+          "emailSendLimit": 25000
+        }
+      }
+    },
+    "atProfessionalLimit": {
+      "usage": {
+        "contacts": {
+          "current": 1000,
+          "limit": 1000,
+          "percentUsed": 100
+        },
+        "emailSends": {
+          "remaining": 0,
+          "limit": 10000,
+          "resetDate": "2025-10-15T00:00:00Z",
+          "percentUsed": 100
+        }
+      },
+      "account": {
+        "planName": "Professional",
+        "planTier": "professional",
+        "upgradeable": true,
+        "nextTier": {
+          "name": "Enterprise",
+          "contactLimit": 10000,
+          "emailSendLimit": 500000
+        }
       }
     },
     "enterprise": {
       "usage": {
-        "contacts": { "current": 8500, "limit": 10000, "percentUsed": 85 },
-        "emailSends": { "remaining": 120000, "limit": 500000, "resetDate": "2025-11-01T00:00:00Z", "percentUsed": 76 }
+        "contacts": {
+          "current": 8500,
+          "limit": 10000,
+          "percentUsed": 85
+        },
+        "emailSends": {
+          "remaining": 120000,
+          "limit": 500000,
+          "resetDate": "2025-11-01T00:00:00Z",
+          "percentUsed": 76
+        }
       },
       "account": {
         "planName": "Enterprise",
@@ -50,9 +130,23 @@
     }
   },
   "planTiers": [
-    { "name": "Plus", "tier": "plus", "contactLimit": 1000, "emailSendLimit": 10000 },
-    { "name": "Professional", "tier": "professional", "contactLimit": 2500, "emailSendLimit": 25000 },
-    { "name": "Enterprise", "tier": "enterprise", "contactLimit": 10000, "emailSendLimit": 500000 }
+    {
+      "name": "Plus",
+      "tier": "plus",
+      "contactLimit": 1000,
+      "emailSendLimit": 10000
+    },
+    {
+      "name": "Professional",
+      "tier": "professional",
+      "contactLimit": 2500,
+      "emailSendLimit": 25000
+    },
+    {
+      "name": "Enterprise",
+      "tier": "enterprise",
+      "contactLimit": 10000,
+      "emailSendLimit": 500000
+    }
   ]
 }
-

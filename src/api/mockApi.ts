@@ -1,3 +1,5 @@
+const mockScenario = "atProfessionalLimit" 
+
 export const fetchUsageData = async (): Promise<any> => {
   // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 500));
@@ -6,8 +8,8 @@ export const fetchUsageData = async (): Promise<any> => {
   const response = await fetch('/sample-data.json');
   const data = await response.json();
   
-  // Return usage data from "approachingLimit" scenario
-  return data.scenarios.approachingLimit.usage;
+  // Return usage data from specific scenario
+  return data.scenarios[mockScenario].usage;
 };
 
 export const fetchAccountData = async (): Promise<any> => {
@@ -17,8 +19,8 @@ export const fetchAccountData = async (): Promise<any> => {
   // Fetch data from sample-data.json
   const response = await fetch('/sample-data.json');
   const data = await response.json();
-  
-  // Return account data from "approachingLimit" scenario
-  return data.scenarios.approachingLimit.account;
+
+  // Return account data from specific scenario
+  return data.scenarios[mockScenario].account;
 };
 
