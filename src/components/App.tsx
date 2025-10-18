@@ -69,10 +69,12 @@ function App() {
     }
 
     if (error) {
+      // TODO: Implement an error logging integration, e.g. Airbrake
       return <ErrorState>Error loading data: {error}</ErrorState>;
     }
 
     if (!usage || !account) {
+      // Could just be an edge case on prod, but can definitely happen during new feature development during pre-validation stages
       return <LoadingState>No data available</LoadingState>;
     }
 
