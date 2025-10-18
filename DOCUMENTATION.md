@@ -30,7 +30,7 @@ Giving the reviewers full transparency on both my decision-making process as wel
 - Strengths of each option
   1. Prove that I have memorized X amount of esoteric knowledge?
   2. I can find examples that suit my own style
-  3. I can get to my area of strength and refine a working example
+  3. React provides a much greater base of data for LLMs than antiquated ember.js versions, plus AI does better at generating new content than understanding and modifying existing code bases (which is my specialty). I can use an agent to generate a working example that I can expand .
 - Drawbacks to each option
   1. Test anxiety and assessment deadlines have an unreasonable influence on my ability to focus. Consulting online docs for react redux and react basics errors would end up consuming all the assessment time (e.g. an ember template convention `usage={{usage.contacts}}` instead of `usage={usage.contacts}`).
   2. Searching online is another time sink, plus I risk exhibiting novice copypasta mistakes. Realistically, it feels like plagiarism anyways.
@@ -41,9 +41,13 @@ Giving the reviewers full transparency on both my decision-making process as wel
   - The agent inspected the code base and found more context than in the prompt. The components were functional, but the mock api data was being displayed without state management.
 - I discarded the initially suggested implementation and revised my prompt to include the instructions because it reads as well-written context: `In this react application within #file:src , generate two components inside the #sym:WidgetsContainer that will host usage data. Follow all the instructions in the #file:README.md.`
   - Copilot generated all the typescript interfaces, a redux store, a series of abstract components, and a test for each component.
-  - I brought up the app and inspected the output for accuracy
-  - I inspected the code changes for elements that I do or don't comprehend at first glance (in search of the new or unknown)
 
-4. **Discoveries**
-- `useSelector` is a declarative tool that closely approximates the computed properties I currently use in ember to detect changes, recompute, and re-render store data
-- `useDispatch` is a centralized data source, whereas ember implementations typically load data into root components and pass down 
+4. **Acceptance testing the Copilot output:**
+- I brought up the app and started swapping scenarios from the mockApi to check all the cases 
+- Created new cases for a no-data state as well as a professional-to-enterprise level CTA
+- Broke the mockApi to ensure that errors are handled (app doesn't crash) and that errors contents are displayed to the user
+
+5. **Modifications**
+- Created a "full" scenario
+- Replacing `null` with `undefined`: In terms of flexibility and familiarity, I am accustomed to normalizing `null` values into `undefined` for the use of optionality chaining, plus the simplicity of handling union types (e.g. network requests are either a success or an error, not both).
+- Testing upgrades:
