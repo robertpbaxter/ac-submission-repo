@@ -1,5 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { RootState } from '../store';
+import { fetchAppData } from '../store/thunks';
+import { ContactsWidget } from './ContactsWidget';
+import { EmailSendsWidget } from './EmailSendsWidget';
 
 const AppContainer = styled.div`
   min-height: 100vh;
@@ -32,7 +37,53 @@ const WidgetsContainer = styled.div`
   gap: 1.5rem;
 `;
 
+const LoadingState = styled.div`
+  text-align: center;
+  padding: 2rem;
+  color: #718096;
+`;
+
+const ErrorState = styled.div`
+  text-align: center;
+  padding: 2rem;
+  color: #e53e3e;
+  background-color: #fed7d7;
+  border-radius: 8px;
+  border: 1px solid #fc8181;
+`;
+
 function App() {
+  const dispatch = useDispatch();
+  const usage = useSelector((state: RootState) => state.usage);
+  const account = useSelector((state: RootState) => state.account);
+  const loading = useSelector((state: RootState) => state.loading);
+  const error = useSelector((state: RootState) => state.error);
+
+  useEffect(() => {
+    dispatch(fetchAppData() as any);
+  }, [dispatch]);
+
+  const renderContent = () => {
+    if (loading) {
+      return <LoadingState>Loading usage data...</LoadingState>;
+    }
+
+    if (error) {
+      return <ErrorState>Error loading data: {error}</ErrorState>;
+    }
+
+    if (!usage || !account) {
+      return <LoadingState>No data available</LoadingState>;
+    }
+
+    return (
+      <>
+        <ContactsWidget usage={usage.contacts} account={account} />
+        <EmailSendsWidget usage={usage.emailSends} account={account} />
+      </>
+    );
+  };
+
   return (
     <AppContainer>
       <Header>
@@ -40,7 +91,7 @@ function App() {
       </Header>
       <MainContent>
         <WidgetsContainer id="usage-widgets-container">
-          {/* TODO: Build and mount UsageWidget components here */}
+          {renderContent()}
         </WidgetsContainer>
       </MainContent>
     </AppContainer>
